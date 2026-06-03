@@ -1,6 +1,6 @@
 # No Molestar
 
-Retro-futuristic YouTube music player built with Electron.
+Stardew Valley Pinky tones YouTube music player built with Electron.
 
 ## Prerequisites
 
