@@ -1,0 +1,204 @@
+#setup-wizard {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  animation: fadeIn 0.5s ease;
+}
+
+.wizard-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  max-width: 480px;
+  width: 100%;
+  animation: fadeSlideIn 0.4s ease;
+}
+
+.wizard-step h1 {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 900;
+  color: var(--accent);
+  text-shadow: var(--accent-glow);
+  letter-spacing: 4px;
+  text-align: center;
+}
+
+.wizard-step h2 {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.wizard-step p {
+  color: var(--text-secondary);
+  font-size: 13px;
+  line-height: 1.7;
+  text-align: center;
+}
+
+.wizard-step .instructions {
+  text-align: left;
+  width: 100%;
+}
+
+.wizard-step .instructions ol {
+  list-style: decimal;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.wizard-step .instructions li {
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.wizard-step .instructions a {
+  color: var(--accent);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.wizard-step .instructions a:hover {
+  text-shadow: var(--accent-glow-soft);
+}
+
+.wizard-input-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.wizard-input-group label {
+  font-size: 11px;
+  color: var(--text-dim);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.wizard-input-group input {
+  width: 100%;
+  height: 40px;
+  padding: 0 14px;
+  background: var(--bg-secondary);
+  border: 1px solid rgba(0, 240, 255, 0.15);
+  border-radius: var(--radius);
+  font-size: 13px;
+  color: var(--text-primary);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.wizard-input-group input:focus {
+  border-color: var(--accent);
+  box-shadow: var(--accent-glow-soft);
+}
+
+.wizard-input-group input.error {
+  border-color: var(--danger);
+  box-shadow: 0 0 6px rgba(255, 45, 107, 0.3);
+}
+
+.wizard-input-group input.success {
+  border-color: var(--success);
+  box-shadow: 0 0 6px rgba(57, 255, 20, 0.3);
+}
+
+.wizard-input-group .input-feedback {
+  font-size: 11px;
+  min-height: 16px;
+}
+
+.wizard-input-group .input-feedback.error {
+  color: var(--danger);
+}
+
+.wizard-input-group .input-feedback.success {
+  color: var(--success);
+}
+
+.wizard-btn {
+  padding: 10px 28px;
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--bg-primary);
+  background: var(--accent);
+  border-radius: var(--radius);
+  transition: box-shadow var(--transition-fast), transform var(--transition-fast);
+  text-transform: uppercase;
+}
+
+.wizard-btn:hover {
+  box-shadow: var(--accent-glow);
+}
+
+.wizard-btn:active {
+  transform: scale(0.97);
+}
+
+.wizard-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.wizard-btn.secondary {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+}
+
+.wizard-btn.secondary:hover {
+  border-color: var(--accent);
+  box-shadow: var(--accent-glow-soft);
+}
+
+.wizard-buttons {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.wizard-progress {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.wizard-progress .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--bg-tertiary);
+  transition: background var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.wizard-progress .dot.active {
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent);
+}
+
+.wizard-progress .dot.done {
+  background: var(--success);
+  box-shadow: 0 0 4px var(--success);
+}
+
+.wizard-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--bg-tertiary);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}

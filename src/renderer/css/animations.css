@@ -1,0 +1,53 @@
+@keyframes neonPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes neonGlow {
+  0%, 100% { text-shadow: var(--accent-glow); }
+  50% { text-shadow: 0 0 5px var(--accent); }
+}
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeSlideInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes glitchFlicker {
+  0%, 94%, 100% { opacity: 1; }
+  95% { opacity: 0.8; transform: translateX(-1px); }
+  97% { opacity: 0.9; transform: translateX(1px); }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-fade-in {
+  animation: fadeSlideIn 0.4s ease both;
+}
+
+.animate-glow {
+  animation: neonGlow 3s ease-in-out infinite;
+}

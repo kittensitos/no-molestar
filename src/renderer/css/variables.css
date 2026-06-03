@@ -1,0 +1,36 @@
+:root {
+  --neon-cyan: #00f0ff;
+  --neon-magenta: #ff00ff;
+  --neon-pink: #ff2d6b;
+  --neon-green: #39ff14;
+  --neon-yellow: #fffc00;
+  --neon-orange: #ff6b00;
+  --neon-purple: #b026ff;
+
+  --bg-primary: #0a0a14;
+  --bg-secondary: #12121f;
+  --bg-tertiary: #1a1a2e;
+  --bg-hover: #22223a;
+
+  --text-primary: #e0e0ff;
+  --text-secondary: #8888aa;
+  --text-dim: #555577;
+
+  --accent: var(--neon-cyan);
+  --accent-glow: 0 0 10px var(--neon-cyan), 0 0 20px rgba(0, 240, 255, 0.4), 0 0 40px rgba(0, 240, 255, 0.2);
+  --accent-glow-soft: 0 0 6px rgba(0, 240, 255, 0.3);
+
+  --danger: var(--neon-pink);
+  --success: var(--neon-green);
+
+  --font-display: 'Orbitron', sans-serif;
+  --font-body: 'Share Tech Mono', monospace;
+
+  --title-bar-height: 36px;
+  --controls-height: 90px;
+  --queue-width: 320px;
+
+  --transition-fast: 150ms ease;
+  --transition-normal: 300ms ease;
+  --radius: 4px;
+}

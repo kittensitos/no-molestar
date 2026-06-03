@@ -1,0 +1,88 @@
+@font-face {
+  font-family: 'Orbitron';
+  src: url('../assets/fonts/Orbitron-Variable.woff2') format('truetype');
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Share Tech Mono';
+  src: url('../assets/fonts/ShareTechMono-Regular.woff2') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+html, body {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  user-select: none;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: relative;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+#title-bar {
+  height: var(--title-bar-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  background: var(--bg-secondary);
+  -webkit-app-region: drag;
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(0, 240, 255, 0.1);
+}
+
+#title-bar .app-title {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--accent);
+  text-shadow: var(--accent-glow-soft);
+}
+
+#title-bar .window-controls {
+  display: flex;
+  gap: 2px;
+  -webkit-app-region: no-drag;
+}
+
+#title-bar .window-controls button {
+  width: 32px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--text-secondary);
+  border-radius: var(--radius);
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+#title-bar .window-controls button:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+#title-bar .window-controls button.btn-close:hover {
+  background: var(--neon-pink);
+  color: #fff;
+}
