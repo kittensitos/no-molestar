@@ -74,14 +74,14 @@ function draw() {
     const y = height - barHeight;
 
     const gradient = ctx.createLinearGradient(x, y, x, height);
-    gradient.addColorStop(0, 'rgba(0, 240, 255, 0.8)');
-    gradient.addColorStop(0.5, 'rgba(0, 240, 255, 0.4)');
-    gradient.addColorStop(1, 'rgba(0, 240, 255, 0.05)');
+    gradient.addColorStop(0, 'rgba(176, 96, 128, 0.7)');
+    gradient.addColorStop(0.5, 'rgba(196, 120, 152, 0.35)');
+    gradient.addColorStop(1, 'rgba(216, 160, 184, 0.05)');
 
     ctx.fillStyle = gradient;
     ctx.fillRect(x, y, barWidth, barHeight);
 
-    ctx.fillStyle = 'rgba(0, 240, 255, 0.9)';
+    ctx.fillStyle = 'rgba(176, 96, 128, 0.8)';
     ctx.fillRect(x, y, barWidth, 2);
   }
 }

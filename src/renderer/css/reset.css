@@ -36,18 +36,18 @@ a {
 }
 
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-primary);
+  background: var(--bg-tertiary);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--text-dim);
-  border-radius: 3px;
+  background: var(--wood-light);
+  border: 1px solid var(--wood-dark);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent);
+  background: var(--wood-medium);
 }

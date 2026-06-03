@@ -5,10 +5,14 @@
   <meta http-equiv="Content-Security-Policy"
         content="default-src 'self';
                  script-src 'self';
-                 style-src 'self' 'unsafe-inline';
+                 style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+                 font-src 'self' https://fonts.gstatic.com;
                  img-src 'self' https://i.ytimg.com https://*.googleusercontent.com data:;
                  connect-src https://www.googleapis.com;
                  frame-src https://www.youtube.com;">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/base.css">
