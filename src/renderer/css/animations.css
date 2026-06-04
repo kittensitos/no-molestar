@@ -33,6 +33,45 @@
   100% { transform: translateX(-50%); }
 }
 
+@keyframes catWalkCW {
+  0%    { top: -16px; left: -10px; transform: scaleX(1); }
+  25%   { top: -16px; left: calc(100% - 10px); transform: scaleX(1); }
+  25.1% { top: -16px; left: calc(100% - 10px); transform: scaleX(-1); }
+  50%   { top: calc(100% - 2px); left: calc(100% - 10px); transform: scaleX(-1); }
+  50.1% { top: calc(100% - 2px); left: calc(100% - 10px); transform: scaleX(-1); }
+  75%   { top: calc(100% - 2px); left: -10px; transform: scaleX(-1); }
+  75.1% { top: calc(100% - 2px); left: -10px; transform: scaleX(1); }
+  100%  { top: -16px; left: -10px; transform: scaleX(1); }
+}
+
+@keyframes catWalkCCW {
+  0%    { bottom: -16px; right: -10px; transform: scaleX(-1); }
+  25%   { bottom: -16px; right: calc(100% - 10px); transform: scaleX(-1); }
+  25.1% { bottom: -16px; right: calc(100% - 10px); transform: scaleX(1); }
+  50%   { bottom: calc(100% - 2px); right: calc(100% - 10px); transform: scaleX(1); }
+  50.1% { bottom: calc(100% - 2px); right: calc(100% - 10px); transform: scaleX(1); }
+  75%   { bottom: calc(100% - 2px); right: -10px; transform: scaleX(1); }
+  75.1% { bottom: calc(100% - 2px); right: -10px; transform: scaleX(-1); }
+  100%  { bottom: -16px; right: -10px; transform: scaleX(-1); }
+}
+
+@keyframes catBounce {
+  0%, 100% { margin-top: 0; }
+  50% { margin-top: -2px; }
+}
+
+@keyframes sparkleFloat {
+  0%, 100% { background-position: 0 0; }
+  25% { background-position: 3px -5px; }
+  50% { background-position: -4px 3px; }
+  75% { background-position: 5px 4px; }
+}
+
+@keyframes sparkleFade {
+  0%, 100% { background-size: 100% 100%; }
+  50% { background-size: 110% 110%; }
+}
+
 .animate-fade-in {
   animation: fadeSlideIn 0.4s ease both;
 }

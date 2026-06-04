@@ -2,6 +2,8 @@ const { app, BrowserWindow, ipcMain, shell } = require('electron');
 const path = require('path');
 const { registerIpcHandlers } = require('./ipc-handlers');
 
+app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required');
+
 let mainWindow;
 
 function createWindow() {

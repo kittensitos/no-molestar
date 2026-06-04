@@ -182,6 +182,26 @@
   min-height: 0;
 }
 
+#now-playing-section.sparkles {
+  background-image:
+    radial-gradient(1px 1px at 10% 15%, rgba(255,182,193,0.9) 50%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 85% 25%, rgba(255,105,180,0.8) 50%, transparent 100%),
+    radial-gradient(1px 1px at 30% 80%, rgba(255,192,203,0.9) 50%, transparent 100%),
+    radial-gradient(2px 2px at 70% 60%, rgba(255,182,193,0.7) 50%, transparent 100%),
+    radial-gradient(1px 1px at 50% 40%, rgba(255,105,180,0.8) 50%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 20% 55%, rgba(255,192,203,0.7) 50%, transparent 100%),
+    radial-gradient(1px 1px at 90% 75%, rgba(255,182,193,0.9) 50%, transparent 100%),
+    radial-gradient(2px 2px at 40% 20%, rgba(255,105,180,0.6) 50%, transparent 100%),
+    radial-gradient(1px 1px at 65% 90%, rgba(255,192,203,0.8) 50%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 5% 45%, rgba(255,182,193,0.7) 50%, transparent 100%),
+    radial-gradient(1px 1px at 75% 10%, rgba(255,105,180,0.9) 50%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 55% 70%, rgba(255,192,203,0.6) 50%, transparent 100%),
+    radial-gradient(1px 1px at 15% 90%, rgba(255,182,193,0.8) 50%, transparent 100%),
+    radial-gradient(2px 2px at 95% 50%, rgba(255,105,180,0.7) 50%, transparent 100%),
+    radial-gradient(1px 1px at 45% 5%, rgba(255,192,203,0.9) 50%, transparent 100%);
+  animation: sparkleFloat 4s ease-in-out infinite, sparkleFade 2s ease-in-out infinite;
+}
+
 .now-playing-idle {
   display: flex;
   flex-direction: column;
@@ -216,10 +236,9 @@
 
 .now-playing-thumb-container {
   position: relative;
-  width: 200px;
-  height: 200px;
+  width: 280px;
+  aspect-ratio: 16 / 9;
   border-radius: var(--radius);
-  overflow: hidden;
   border: var(--border-wood);
   box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.15), inset 0 2px 0 rgba(255, 255, 255, 0.1);
 }
@@ -228,6 +247,127 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
+  border-radius: inherit;
+}
+
+.now-playing-thumb-container::before,
+.now-playing-thumb-container::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  z-index: 2;
+  pointer-events: none;
+  image-rendering: pixelated;
+}
+
+.now-playing-thumb-container::before {
+  box-shadow:
+    /* ears */
+    0px 0px 0 0 var(--wood-dark),
+    8px 0px 0 0 var(--wood-dark),
+    /* head */
+    -2px 2px 0 0 var(--wood-dark),
+    0px 2px 0 0 var(--wood-medium),
+    2px 2px 0 0 var(--wood-medium),
+    4px 2px 0 0 var(--wood-medium),
+    6px 2px 0 0 var(--wood-medium),
+    8px 2px 0 0 var(--wood-medium),
+    10px 2px 0 0 var(--wood-dark),
+    -2px 4px 0 0 var(--wood-medium),
+    0px 4px 0 0 #5c2040,
+    2px 4px 0 0 var(--wood-light),
+    4px 4px 0 0 var(--wood-medium),
+    6px 4px 0 0 var(--wood-light),
+    8px 4px 0 0 #5c2040,
+    10px 4px 0 0 var(--wood-medium),
+    -2px 6px 0 0 var(--wood-medium),
+    0px 6px 0 0 var(--wood-medium),
+    2px 6px 0 0 var(--wood-medium),
+    4px 6px 0 0 var(--berry-red),
+    6px 6px 0 0 var(--wood-medium),
+    8px 6px 0 0 var(--wood-medium),
+    10px 6px 0 0 var(--wood-medium),
+    /* body */
+    -2px 8px 0 0 var(--wood-dark),
+    0px 8px 0 0 var(--wood-medium),
+    2px 8px 0 0 var(--wood-medium),
+    4px 8px 0 0 var(--wood-medium),
+    6px 8px 0 0 var(--wood-medium),
+    8px 8px 0 0 var(--wood-medium),
+    10px 8px 0 0 var(--wood-dark),
+    -2px 10px 0 0 var(--wood-medium),
+    0px 10px 0 0 var(--wood-light),
+    2px 10px 0 0 var(--wood-medium),
+    4px 10px 0 0 var(--wood-light),
+    6px 10px 0 0 var(--wood-medium),
+    8px 10px 0 0 var(--wood-light),
+    10px 10px 0 0 var(--wood-medium),
+    /* legs frame 1 */
+    -2px 12px 0 0 var(--wood-dark),
+    0px 12px 0 0 var(--wood-dark),
+    8px 12px 0 0 var(--wood-dark),
+    10px 12px 0 0 var(--wood-dark),
+    /* tail */
+    12px 6px 0 0 var(--wood-dark),
+    14px 4px 0 0 var(--wood-dark),
+    16px 2px 0 0 var(--wood-dark);
+  animation: catWalkCW 6s linear infinite, catBounce 0.4s ease-in-out infinite;
+}
+
+.now-playing-thumb-container::after {
+  box-shadow:
+    /* ears */
+    0px 0px 0 0 var(--berry-red),
+    8px 0px 0 0 var(--berry-red),
+    /* head */
+    -2px 2px 0 0 var(--berry-red),
+    0px 2px 0 0 var(--wood-light),
+    2px 2px 0 0 var(--wood-light),
+    4px 2px 0 0 var(--wood-light),
+    6px 2px 0 0 var(--wood-light),
+    8px 2px 0 0 var(--wood-light),
+    10px 2px 0 0 var(--berry-red),
+    -2px 4px 0 0 var(--wood-light),
+    0px 4px 0 0 #5c2040,
+    2px 4px 0 0 var(--spring-green),
+    4px 4px 0 0 var(--wood-light),
+    6px 4px 0 0 var(--spring-green),
+    8px 4px 0 0 #5c2040,
+    10px 4px 0 0 var(--wood-light),
+    -2px 6px 0 0 var(--wood-light),
+    0px 6px 0 0 var(--wood-light),
+    2px 6px 0 0 var(--wood-light),
+    4px 6px 0 0 var(--berry-red),
+    6px 6px 0 0 var(--wood-light),
+    8px 6px 0 0 var(--wood-light),
+    10px 6px 0 0 var(--wood-light),
+    /* body */
+    -2px 8px 0 0 var(--berry-red),
+    0px 8px 0 0 var(--wood-light),
+    2px 8px 0 0 var(--wood-light),
+    4px 8px 0 0 var(--wood-light),
+    6px 8px 0 0 var(--wood-light),
+    8px 8px 0 0 var(--wood-light),
+    10px 8px 0 0 var(--berry-red),
+    -2px 10px 0 0 var(--wood-light),
+    0px 10px 0 0 var(--spring-green),
+    2px 10px 0 0 var(--wood-light),
+    4px 10px 0 0 var(--spring-green),
+    6px 10px 0 0 var(--wood-light),
+    8px 10px 0 0 var(--spring-green),
+    10px 10px 0 0 var(--wood-light),
+    /* legs frame 1 */
+    -2px 12px 0 0 var(--berry-red),
+    0px 12px 0 0 var(--berry-red),
+    8px 12px 0 0 var(--berry-red),
+    10px 12px 0 0 var(--berry-red),
+    /* tail */
+    -4px 6px 0 0 var(--berry-red),
+    -6px 4px 0 0 var(--berry-red),
+    -8px 2px 0 0 var(--berry-red);
+  animation: catWalkCCW 8s linear infinite, catBounce 0.35s ease-in-out infinite;
 }
 
 .now-playing-title {
@@ -344,6 +484,20 @@
 
 .controls-center button:active {
   transform: scale(0.9);
+}
+
+.controls-center .btn-prev,
+.controls-center .btn-next {
+  width: 40px;
+  height: 40px;
+  font-size: 16px;
+  color: #f08080;
+}
+
+.controls-center .btn-prev:hover,
+.controls-center .btn-next:hover {
+  color: #ff6b6b;
+  background: rgba(240, 128, 128, 0.1);
 }
 
 .controls-center .btn-play-pause {

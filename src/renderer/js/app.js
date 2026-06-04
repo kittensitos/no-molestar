@@ -31,10 +31,12 @@ function initTitleBar() {
   const btnMin = document.getElementById('btn-minimize');
   const btnMax = document.getElementById('btn-maximize');
   const btnClose = document.getElementById('btn-close');
+  const btnExit = document.getElementById('btn-exit');
 
   if (btnMin) btnMin.addEventListener('click', () => window.noMolestar.window.minimize());
   if (btnMax) btnMax.addEventListener('click', () => window.noMolestar.window.maximize());
   if (btnClose) btnClose.addEventListener('click', () => window.noMolestar.window.close());
+  if (btnExit) btnExit.addEventListener('click', () => window.noMolestar.app.quit());
 }
 
 function showSetupWizard() {

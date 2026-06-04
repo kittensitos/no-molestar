@@ -67,6 +67,20 @@ body {
   background: rgba(255, 255, 255, 0.15);
 }
 
+#title-bar .window-controls button.btn-exit {
+  font-family: var(--font-display);
+  font-size: 7px;
+  letter-spacing: 1px;
+  width: auto;
+  padding: 0 8px;
+  margin-right: 4px;
+}
+
+#title-bar .window-controls button.btn-exit:hover {
+  background: var(--berry-red);
+  color: #fff;
+}
+
 #title-bar .window-controls button.btn-close:hover {
   background: var(--berry-red);
   color: #fff;

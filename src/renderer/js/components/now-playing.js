@@ -15,8 +15,10 @@ export function init(el) {
 
   state.subscribe('playerState', (ps) => {
     if (ps === 'PLAYING') {
+      container.classList.add('sparkles');
       visualizer.start();
     } else {
+      container.classList.remove('sparkles');
       visualizer.stop();
     }
   });

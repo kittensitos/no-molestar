@@ -21,6 +21,8 @@ function registerIpcHandlers(ipcMain) {
     BrowserWindow.fromWebContents(e.sender)?.close();
   });
 
+  ipcMain.handle('app:quit', () => app.quit());
+
   ipcMain.handle('app:get-version', () => app.getVersion());
   ipcMain.handle('app:get-platform', () => process.platform);
 }

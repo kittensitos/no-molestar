@@ -13,6 +13,7 @@ contextBridge.exposeInMainWorld('noMolestar', {
     close: () => ipcRenderer.invoke('window:close'),
   },
   app: {
+    quit: () => ipcRenderer.invoke('app:quit'),
     getVersion: () => ipcRenderer.invoke('app:get-version'),
     getPlatform: () => ipcRenderer.invoke('app:get-platform'),
   },
