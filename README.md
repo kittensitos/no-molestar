@@ -48,6 +48,8 @@ npm run build:mac     # macOS (DMG + ZIP)
 npm run build:linux   # Linux (AppImage + DEB)
 ```
 
+You can also use pnpm (recommended)
+
 Build output is written to the `dist/` directory.
 
 ## Project Structure
