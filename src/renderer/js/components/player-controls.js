@@ -1,7 +1,7 @@
 import * as state from '../state.js';
-import { togglePlayPause, seekTo, setVolume } from '../youtube-player.js';
+import { togglePlayPause, seekTo, setVolume } from '../spotify-player.js';
 import { playNext, playPrevious, toggleRepeat, toggleShuffle } from '../queue-manager.js';
-import { formatDuration } from '../youtube-api.js';
+import { formatDuration } from '../spotify-api.js';
 
 let container = null;
 let seekInput = null;

@@ -37,7 +37,7 @@ function renderIdle() {
 
 function renderActive(track) {
   const title = decodeHTMLEntities(track.title);
-  const channel = decodeHTMLEntities(track.channelTitle);
+  const channel = decodeHTMLEntities(track.artist);
 
   container.innerHTML = `
     <div class="now-playing-active animate-fade-in">
