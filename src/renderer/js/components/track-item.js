@@ -21,7 +21,7 @@ export function createTrackItem(track, options = {}) {
 
   const channel = document.createElement('div');
   channel.className = 'track-channel';
-  channel.textContent = decodeHTMLEntities(track.channelTitle);
+  channel.textContent = decodeHTMLEntities(track.artist);
   info.appendChild(channel);
 
   el.appendChild(info);

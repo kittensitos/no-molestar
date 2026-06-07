@@ -1,5 +1,4 @@
-import { setApiKey } from '../config.js';
-import { validateApiKey } from '../youtube-api.js';
+import { setClientId, getClientId, login } from '../spotify-auth.js';
 import * as state from '../state.js';
 
 let container = null;
@@ -13,7 +12,7 @@ export function init(el) {
 
 function render() {
   container.innerHTML = '';
-  const steps = [renderWelcome, renderInstructions, renderKeyInput, renderDone];
+  const steps = [renderWelcome, renderInstructions, renderClientIdInput, renderConnect];
   const stepEl = steps[currentStep]();
   container.appendChild(stepEl);
   container.appendChild(renderProgress());
@@ -24,8 +23,9 @@ function renderWelcome() {
   step.className = 'wizard-step';
   step.innerHTML = `
     <h1>NO MOLESTAR</h1>
-    <p>A retro-futuristic YouTube music player for your desktop.<br>
+    <p>A retro-futuristic Spotify music player for your browser.<br>
     Let's get you set up — it only takes a minute.</p>
+    <p style="margin-top:0.5em;opacity:0.7;font-size:0.85em;">Requires Spotify Premium for playback.</p>
     <button class="wizard-btn">GET STARTED</button>
   `;
   step.querySelector('button').addEventListener('click', () => {
@@ -39,28 +39,23 @@ function renderInstructions() {
   const step = document.createElement('div');
   step.className = 'wizard-step';
   step.innerHTML = `
-    <h2>GET YOUR YOUTUBE API KEY</h2>
+    <h2>CREATE A SPOTIFY APP</h2>
     <div class="instructions">
       <ol>
-        <li>Go to <a href="#" data-url="https://console.cloud.google.com/apis/dashboard">Google Cloud Console</a></li>
-        <li>Create a new project (or select an existing one)</li>
-        <li>Search for <strong>"YouTube Data API v3"</strong> in the API Library and enable it</li>
-        <li>Go to <a href="#" data-url="https://console.cloud.google.com/apis/credentials">Credentials</a> and click <strong>"Create Credentials" > "API Key"</strong></li>
-        <li>Copy the generated API key</li>
+        <li>Go to the <a href="https://developer.spotify.com/dashboard" target="_blank" rel="noopener">Spotify Developer Dashboard</a></li>
+        <li>Click <strong>"Create App"</strong></li>
+        <li>Give it any name (e.g. "No Molestar")</li>
+        <li>Set the <strong>Redirect URI</strong> to:<br>
+          <code style="user-select:all;word-break:break-all;">${window.location.origin}${window.location.pathname}</code></li>
+        <li>Under <strong>APIs used</strong>, check <strong>"Web Playback SDK"</strong> and <strong>"Web API"</strong></li>
+        <li>Save, then copy the <strong>Client ID</strong> from the app settings</li>
       </ol>
     </div>
     <div class="wizard-buttons">
       <button class="wizard-btn secondary">BACK</button>
-      <button class="wizard-btn">I HAVE MY KEY</button>
+      <button class="wizard-btn">I HAVE MY CLIENT ID</button>
     </div>
   `;
-
-  step.querySelectorAll('a[data-url]').forEach((link) => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      window.open(link.dataset.url, '_blank');
-    });
-  });
 
   const buttons = step.querySelectorAll('button');
   buttons[0].addEventListener('click', () => {
@@ -75,31 +70,37 @@ function renderInstructions() {
   return step;
 }
 
-function renderKeyInput() {
+function renderClientIdInput() {
   const step = document.createElement('div');
   step.className = 'wizard-step';
   step.innerHTML = `
-    <h2>ENTER YOUR API KEY</h2>
+    <h2>ENTER YOUR CLIENT ID</h2>
     <div class="wizard-input-group">
-      <label>YouTube Data API v3 Key</label>
-      <input type="text" placeholder="AIza..." spellcheck="false" autocomplete="off" />
+      <label>Spotify App Client ID</label>
+      <input type="text" placeholder="e.g. a1b2c3d4e5f6..." spellcheck="false" autocomplete="off" />
       <div class="input-feedback"></div>
     </div>
     <div class="wizard-buttons">
       <button class="wizard-btn secondary">BACK</button>
-      <button class="wizard-btn" disabled>VALIDATE & SAVE</button>
+      <button class="wizard-btn" disabled>NEXT</button>
     </div>
   `;
 
   const input = step.querySelector('input');
   const feedback = step.querySelector('.input-feedback');
   const buttons = step.querySelectorAll('button');
-  const submitBtn = buttons[1];
+  const nextBtn = buttons[1];
+
+  const existing = getClientId();
+  if (existing) {
+    input.value = existing;
+    nextBtn.disabled = false;
+  }
 
   input.addEventListener('input', () => {
     const val = input.value.trim();
-    submitBtn.disabled = val.length < 10;
-    input.classList.remove('error', 'success');
+    nextBtn.disabled = val.length < 10;
+    input.classList.remove('error');
     feedback.textContent = '';
     feedback.className = 'input-feedback';
   });
@@ -109,48 +110,52 @@ function renderKeyInput() {
     render();
   });
 
-  submitBtn.addEventListener('click', async () => {
-    const key = input.value.trim();
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'VALIDATING...';
-    input.classList.remove('error', 'success');
-    feedback.textContent = '';
-
-    const valid = await validateApiKey(key);
-
-    if (valid) {
-      await setApiKey(key);
-      input.classList.add('success');
-      feedback.textContent = 'API key is valid!';
-      feedback.className = 'input-feedback success';
-      setTimeout(() => {
-        currentStep = 3;
-        render();
-      }, 800);
-    } else {
+  nextBtn.addEventListener('click', () => {
+    const clientId = input.value.trim();
+    if (clientId.length < 10) {
       input.classList.add('error');
-      feedback.textContent = 'Invalid API key. Please check and try again.';
+      feedback.textContent = 'Client ID seems too short.';
       feedback.className = 'input-feedback error';
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'VALIDATE & SAVE';
+      return;
     }
+    setClientId(clientId);
+    currentStep = 3;
+    render();
   });
 
   setTimeout(() => input.focus(), 100);
   return step;
 }
 
-function renderDone() {
+function renderConnect() {
   const step = document.createElement('div');
   step.className = 'wizard-step';
   step.innerHTML = `
-    <h1>YOU'RE ALL SET</h1>
-    <p>Start searching for your favorite music and enjoy the vibes.</p>
-    <button class="wizard-btn">START LISTENING</button>
+    <h2>CONNECT TO SPOTIFY</h2>
+    <p>Click below to log in with your Spotify Premium account.<br>
+    You'll be redirected to Spotify and back.</p>
+    <button class="wizard-btn">CONNECT TO SPOTIFY</button>
+    <div class="wizard-buttons" style="margin-top:1em;">
+      <button class="wizard-btn secondary">BACK</button>
+    </div>
   `;
-  step.querySelector('button').addEventListener('click', () => {
-    state.set('isSetupComplete', true);
+
+  step.querySelector('.wizard-btn:not(.secondary)').addEventListener('click', async () => {
+    try {
+      await login();
+    } catch (err) {
+      const feedback = document.createElement('div');
+      feedback.className = 'input-feedback error';
+      feedback.textContent = err.message;
+      step.appendChild(feedback);
+    }
   });
+
+  step.querySelector('.wizard-btn.secondary').addEventListener('click', () => {
+    currentStep = 2;
+    render();
+  });
+
   return step;
 }
 

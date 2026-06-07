@@ -1,20 +1,18 @@
 import * as state from './state.js';
-import { hasApiKey } from './config.js';
-import { init as initPlayer } from './youtube-player.js';
+import { isLoggedIn, handleCallback } from './spotify-auth.js';
+import { init as initPlayer } from './spotify-player.js';
 import { init as initSetupWizard } from './components/setup-wizard.js';
 import { init as initSearchBar } from './components/search-bar.js';
 import { init as initNowPlaying } from './components/now-playing.js';
 import { init as initPlayerControls } from './components/player-controls.js';
 import { init as initQueuePanel } from './components/queue-panel.js';
-import { togglePlayPause, seekTo } from './youtube-player.js';
+import { togglePlayPause, seekTo } from './spotify-player.js';
 import { playNext, playPrevious } from './queue-manager.js';
 
 async function boot() {
-  initTitleBar();
+  const callbackHandled = await handleCallback();
 
-  const hasKey = await hasApiKey();
-
-  if (hasKey) {
+  if (callbackHandled || isLoggedIn()) {
     showApp();
   } else {
     showSetupWizard();
@@ -27,29 +25,17 @@ async function boot() {
   initKeyboardShortcuts();
 }
 
-function initTitleBar() {
-  const btnMin = document.getElementById('btn-minimize');
-  const btnMax = document.getElementById('btn-maximize');
-  const btnClose = document.getElementById('btn-close');
-  const btnExit = document.getElementById('btn-exit');
-
-  if (btnMin) btnMin.addEventListener('click', () => window.noMolestar.window.minimize());
-  if (btnMax) btnMax.addEventListener('click', () => window.noMolestar.window.maximize());
-  if (btnClose) btnClose.addEventListener('click', () => window.noMolestar.window.close());
-  if (btnExit) btnExit.addEventListener('click', () => window.noMolestar.app.quit());
-}
-
 function showSetupWizard() {
   document.getElementById('setup-wizard').classList.remove('hidden');
   document.getElementById('app').classList.add('hidden');
   initSetupWizard(document.getElementById('setup-wizard'));
 }
 
-function showApp() {
+async function showApp() {
   document.getElementById('setup-wizard').classList.add('hidden');
   document.getElementById('app').classList.remove('hidden');
 
-  initPlayer();
+  await initPlayer();
   initSearchBar(document.getElementById('search-section'));
   initNowPlaying(document.getElementById('now-playing-section'));
   initPlayerControls(document.getElementById('controls-section'));
@@ -83,13 +69,17 @@ function initKeyboardShortcuts() {
         break;
       case 'ArrowUp':
         e.preventDefault();
-        const vol = Math.min(100, state.get('volume') + 5);
-        import('./youtube-player.js').then((p) => p.setVolume(vol));
+        import('./spotify-player.js').then((p) => {
+          const vol = Math.min(100, state.get('volume') + 5);
+          p.setVolume(vol);
+        });
         break;
       case 'ArrowDown':
         e.preventDefault();
-        const vol2 = Math.max(0, state.get('volume') - 5);
-        import('./youtube-player.js').then((p) => p.setVolume(vol2));
+        import('./spotify-player.js').then((p) => {
+          const vol = Math.max(0, state.get('volume') - 5);
+          p.setVolume(vol);
+        });
         break;
     }
   });

@@ -1,5 +1,5 @@
 import * as state from './state.js';
-import { loadTrack } from './youtube-player.js';
+import { loadTrack } from './spotify-player.js';
 
 export function addToQueue(track) {
   const queue = [...state.get('queue'), track];
@@ -74,7 +74,7 @@ export function playPrevious() {
   const currentTime = state.get('currentTime');
 
   if (currentTime > 3) {
-    import('./youtube-player.js').then((p) => p.seekTo(0));
+    import('./spotify-player.js').then((p) => p.seekTo(0));
     return;
   }
 
@@ -90,7 +90,7 @@ export function playAtIndex(index) {
   state.set('queueIndex', index);
   state.set('currentTrack', queue[index]);
   state.set('currentTime', 0);
-  loadTrack(queue[index].videoId);
+  loadTrack(queue[index].uri);
 }
 
 export function toggleRepeat() {
