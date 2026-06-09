@@ -15,7 +15,7 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=8080
 
-COPY --from=build /app/dist ./dist
+COPY --from=build /app/src/renderer/dist ./dist
 
 RUN npm install -g serve
 
