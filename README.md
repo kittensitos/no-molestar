@@ -1,69 +1,76 @@
 # No Molestar
 
-Stardew Valley Pinky tones YouTube music player built with Electron.
+Retro-futuristic Spotify web player with a pink CRT aesthetic, built with vanilla JS and Vite.
 
 ## Prerequisites
 
 - [Node.js](https://nodejs.org/) (v18 or higher)
 - npm (included with Node.js)
-- A [YouTube Data API v3](https://console.cloud.google.com/apis/library/youtube.googleapis.com) key
+- A [Spotify Developer](https://developer.spotify.com/dashboard) application (Client ID)
+- A Spotify Premium account (required for the Web Playback SDK)
 
 ## Installation
 
 ```bash
 git clone <repository-url>
-cd no-molestar
+cd no-molestar-1
 npm install
 ```
 
 ## Running the App
 
-### Development mode (with DevTools)
+### Development mode
 
 ```bash
 npm run dev
 ```
 
-### Production mode
-
-```bash
-npm start
-```
-
-On first launch, a setup wizard will prompt you for your YouTube API key. The key is stored locally using Electron's `safeStorage` (encrypted at rest when available).
-
-## Building Distributables
-
-Build for your current platform:
+### Production build
 
 ```bash
 npm run build
+npm run preview
 ```
 
-Build for a specific platform:
+On first launch, a setup wizard will prompt you for your Spotify Client ID. Authentication uses the PKCE authorization flow — no client secret needed.
 
-```bash
-npm run build:win     # Windows (NSIS installer)
-npm run build:mac     # macOS (DMG + ZIP)
-npm run build:linux   # Linux (AppImage + DEB)
-```
+## Features
 
-Build output is written to the `dist/` directory.
+- Spotify playback via the Web Playback SDK
+- Search tracks directly from Spotify's catalog
+- Queue management (add, reorder, skip)
+- Audio visualizer
+- Keyboard shortcuts (Space to play/pause, arrows to seek/skip, up/down for volume)
+- CRT scanline overlay and retro pixel fonts
 
 ## Project Structure
 
 ```
-src/
-├── main/             # Electron main process
-│   ├── main.js       # App entry point and window creation
-│   ├── ipc-handlers.js  # IPC channel handlers
-│   └── config-store.js  # Encrypted API key storage
-├── preload/          # Preload scripts (context bridge)
-│   ├── preload.js
-│   └── webview-preload.js
-└── renderer/         # Frontend (HTML/CSS/JS)
-    ├── index.html
-    ├── css/          # Styles (CRT effects, animations, components)
-    ├── js/           # Application logic, components, player, visualizer
-    └── assets/       # Fonts
+src/renderer/
+├── index.html
+├── css/
+│   ├── variables.css      # Pink/retro theme tokens
+│   ├── base.css           # Layout and typography
+│   ├── crt-effects.css    # Scanline and glow overlays
+│   ├── components.css     # UI component styles
+│   ├── animations.css     # Transitions and keyframes
+│   └── setup-wizard.css   # Auth setup flow
+├── js/
+│   ├── app.js             # Entry point and keyboard shortcuts
+│   ├── state.js           # Reactive state store
+│   ├── spotify-auth.js    # PKCE OAuth flow
+│   ├── spotify-api.js     # Spotify Web API calls
+│   ├── spotify-player.js  # Web Playback SDK integration
+│   ├── queue-manager.js   # Playback queue logic
+│   ├── visualizer.js      # Canvas audio visualizer
+│   ├── config.js          # App configuration
+│   └── components/
+│       ├── setup-wizard.js
+│       ├── search-bar.js
+│       ├── now-playing.js
+│       ├── player-controls.js
+│       ├── queue-panel.js
+│       ├── track-item.js
+│       └── toast.js
+└── assets/fonts/
 ```
