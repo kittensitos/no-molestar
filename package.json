@@ -8,11 +8,6 @@
     "build": "vite build src/renderer",
     "preview": "vite preview --outDir src/renderer/dist"
   },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild"
-    ]
-  },
   "devDependencies": {
     "vite": "^6.0.0"
   }
