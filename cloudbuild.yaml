@@ -18,6 +18,8 @@ steps:
       - no-molestar
       - --source
       - .
+      - --dockerfile
+      - Dockerfile
       - --region
       - europe-west1
       - --project
