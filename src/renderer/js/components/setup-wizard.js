@@ -1,4 +1,4 @@
-import { setClientId, getClientId, login } from '../spotify-auth.js';
+import { setClientId, getClientId, login, getRedirectUri } from '../spotify-auth.js';
 import * as state from '../state.js';
 
 let container = null;
@@ -46,7 +46,7 @@ function renderInstructions() {
         <li>Click <strong>"Create App"</strong></li>
         <li>Give it any name (e.g. "No Molestar")</li>
         <li>Set the <strong>Redirect URI</strong> to:<br>
-          <code style="user-select:all;word-break:break-all;">${window.location.origin}${window.location.pathname}</code></li>
+          <code style="user-select:all;word-break:break-all;">${getRedirectUri()}</code></li>
         <li>Under <strong>APIs used</strong>, check <strong>"Web Playback SDK"</strong> and <strong>"Web API"</strong></li>
         <li>Save, then copy the <strong>Client ID</strong> from the app settings</li>
       </ol>
