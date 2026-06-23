@@ -11,7 +11,7 @@ const CLIENT_ID_KEY = 'nm_spotify_client_id';
 const VERIFIER_KEY = 'nm_pkce_verifier';
 
 function getRedirectUri() {
-  return `${window.location.origin}${window.location.pathname}`;
+  return window.location.origin + '/';
 }
 
 export function getClientId() {
