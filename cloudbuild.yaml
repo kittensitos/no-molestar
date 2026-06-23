@@ -1,0 +1,44 @@
+steps:
+  - name: gcr.io/cloud-builders/gcloud
+    id: Verify spotify branch
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        if [[ "$BRANCH_NAME" != "spotify" ]]; then
+          echo "Skipping deploy: BRANCH_NAME=$BRANCH_NAME (expected spotify)"
+          exit 1
+        fi
+
+  - name: gcr.io/cloud-builders/docker
+    id: Build image
+    args:
+      - build
+      - -t
+      - gcr.io/$PROJECT_ID/no-molestar:latest
+      - .
+
+  - name: gcr.io/cloud-builders/docker
+    id: Push image
+    args:
+      - push
+      - gcr.io/$PROJECT_ID/no-molestar:latest
+
+  - name: gcr.io/cloud-builders/gcloud
+    id: Deploy to Cloud Run
+    args:
+      - run
+      - deploy
+      - no-molestar
+      - --image
+      - gcr.io/$PROJECT_ID/no-molestar:latest
+      - --region
+      - europe-west1
+      - --project
+      - $PROJECT_ID
+      - --platform
+      - managed
+      - --allow-unauthenticated
+
+options:
+  logging: CLOUD_LOGGING_ONLY
