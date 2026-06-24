@@ -10,10 +10,6 @@ const TOKEN_KEY = 'nm_spotify_tokens';
 const CLIENT_ID_KEY = 'nm_spotify_client_id';
 const VERIFIER_KEY = 'nm_pkce_verifier';
 
-<<<<<<< HEAD
-function getRedirectUri() {
-  return window.location.origin + '/';
-=======
 function normalizeRedirectPath(pathname) {
   if (!pathname || pathname === '/') return '/';
 
@@ -28,7 +24,6 @@ function normalizeRedirectPath(pathname) {
 export function getRedirectUri() {
   const path = normalizeRedirectPath(window.location.pathname);
   return `${window.location.origin}${path}`;
->>>>>>> a71dc9818ed03c96e95f2f0d8adf20b3e9b1e0fd
 }
 
 export function getClientId() {
