@@ -67,7 +67,7 @@ export async function getAccessToken() {
   const tokens = getStoredTokens();
   if (!tokens) return null;
 
-  if (Date.now() > tokens.expires_at - 60_000) {
+  if (Date.now() > tokens.expires_at - 60000) {
     const refreshed = await refreshAccessToken(tokens.refresh_token);
     if (!refreshed) {
       logout();
