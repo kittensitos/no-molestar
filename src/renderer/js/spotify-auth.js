@@ -23,7 +23,10 @@ function normalizeRedirectPath(pathname) {
 
 export function getRedirectUri() {
   const path = normalizeRedirectPath(window.location.pathname);
-  return `${window.location.origin}${path}`;
+  // Spotify rejects http://localhost redirect URIs; loopback must be 127.0.0.1
+  const url = new URL(window.location.origin);
+  if (url.hostname === 'localhost') url.hostname = '127.0.0.1';
+  return `${url.origin}${path}`;
 }
 
 export function getClientId() {

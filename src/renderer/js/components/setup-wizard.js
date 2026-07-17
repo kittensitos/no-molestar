@@ -3,10 +3,12 @@ import * as state from '../state.js';
 
 let container = null;
 let currentStep = 0;
+let authError = null;
 
-export function init(el) {
+export function init(el, opts = {}) {
   container = el;
-  currentStep = 0;
+  authError = opts.error || null;
+  currentStep = authError && getClientId() ? 3 : 0;
   render();
 }
 
@@ -139,6 +141,14 @@ function renderConnect() {
       <button class="wizard-btn secondary">BACK</button>
     </div>
   `;
+
+  if (authError) {
+    const feedback = document.createElement('div');
+    feedback.className = 'input-feedback error';
+    feedback.textContent = authError;
+    step.appendChild(feedback);
+    authError = null;
+  }
 
   step.querySelector('.wizard-btn:not(.secondary)').addEventListener('click', async () => {
     try {

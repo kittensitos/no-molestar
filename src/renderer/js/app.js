@@ -10,12 +10,27 @@ import { togglePlayPause, seekTo } from './spotify-player.js';
 import { playNext, playPrevious } from './queue-manager.js';
 
 async function boot() {
-  const callbackHandled = await handleCallback();
+  // Spotify only allows 127.0.0.1 (not localhost) as a loopback redirect URI,
+  // and localStorage differs per origin — so move to 127.0.0.1 before doing anything.
+  if (window.location.hostname === 'localhost') {
+    const url = new URL(window.location.href);
+    url.hostname = '127.0.0.1';
+    window.location.replace(url);
+    return;
+  }
+
+  let callbackHandled = false;
+  let authError = null;
+  try {
+    callbackHandled = await handleCallback();
+  } catch (err) {
+    authError = err.message;
+  }
 
   if (callbackHandled || isLoggedIn()) {
     showApp();
   } else {
-    showSetupWizard();
+    showSetupWizard(authError);
   }
 
   state.subscribe('isSetupComplete', (done) => {
@@ -25,10 +40,10 @@ async function boot() {
   initKeyboardShortcuts();
 }
 
-function showSetupWizard() {
+function showSetupWizard(error = null) {
   document.getElementById('setup-wizard').classList.remove('hidden');
   document.getElementById('app').classList.add('hidden');
-  initSetupWizard(document.getElementById('setup-wizard'));
+  initSetupWizard(document.getElementById('setup-wizard'), { error });
 }
 
 async function showApp() {

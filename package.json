@@ -4,9 +4,9 @@
   "description": "Retro-futuristic Spotify web player",
   "type": "module",
   "scripts": {
-    "dev": "vite src/renderer",
-    "build": "vite build src/renderer",
-    "preview": "vite preview --outDir src/renderer/dist"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "devDependencies": {
     "vite": "^6.0.0"
