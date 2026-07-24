@@ -65,7 +65,8 @@ async function doSearch(query) {
     const results = await searchTracks(query);
     state.set('searchResults', results);
   } catch (err) {
-    resultsEl.innerHTML = `<div class="search-loading" style="color:var(--danger)">${err.message}</div>`;
+    resultsEl.innerHTML = '<div class="search-loading" style="color:var(--danger)"></div>';
+    resultsEl.firstElementChild.textContent = err.message;
   }
 }
 
